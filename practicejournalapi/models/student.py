@@ -6,9 +6,9 @@ class Student(models.Model):
 
     # Relationship to the built-in User model which has name and email
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    age = models.IntegerField()
-    years_playing = models.IntegerField()
-    style = models.CharField(max_length=300)
+    age = models.IntegerField(null=True, blank=True)
+    years_playing = models.IntegerField(null=True, blank=True)
+    style = models.CharField(max_length=300, null=True, blank=True)
 
     @property
     def full_name(self):
