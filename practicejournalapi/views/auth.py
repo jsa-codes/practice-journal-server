@@ -107,7 +107,7 @@ def register_user(request):
 
         if account_type == 'student':
             account = Student.objects.create(
-                age=request.data['address'],
+                age=request.data['age'],
                 years_playing=request.data['years_playing'],
                 style=request.data['style'],
                 user=new_user

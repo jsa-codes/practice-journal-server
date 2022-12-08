@@ -9,4 +9,3 @@ class Comment(models.Model):
                             auto_now=False, auto_now_add=False)
     time = models.TimeField(null=True, blank=True,
                             auto_now=False, auto_now_add=False)
-    journal_entry = models.ForeignKey("JournalEntry", on_delete=models.CASCADE)

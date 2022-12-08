@@ -1,0 +1,16 @@
+[
+    {
+        "model": "practicejournalapi.guitartype",
+        "pk": 1,
+        "fields": {
+            "type": "acoustic"
+        }
+    },
+    {
+        "model": "practicejournalapi.guitartype",
+        "pk": 2,
+        "fields": {
+            "type": "electric"
+        }
+    }
+]

@@ -1,0 +1,12 @@
+[
+    {
+        "model": "practicejournalapi.comment",
+        "pk": 1,
+        "fields": {
+            "date": "2022-10-23",
+            "time": "12:23:23",
+            "description": "Voluptas recusandae distinctio cumque qui nobis quidem nesciunt maiores exercitationem. Magni ut consectetur eligendi eum iusto.",
+            "user": 1
+        }
+    }
+]
