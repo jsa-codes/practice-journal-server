@@ -37,5 +37,6 @@ class JournalEntrySerializer(serializers.ModelSerializer):
     """JSON serializer for journalentries"""
     class Meta:
         model = JournalEntry
-        fields = ('id', 'description', 'date', 'time')
+        fields = ('id', 'student', 'date', 'time', 'hours_slept',
+                  'water', 'nutrition', 'mood', 'description', 'session_length')
         depth = 1
