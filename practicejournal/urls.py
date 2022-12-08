@@ -19,9 +19,19 @@ from django.conf.urls import include
 from django.urls import path
 from practicejournalapi.views import register_user, login_user
 from practicejournalapi.views import StudentView
+from practicejournalapi.views import CommentView
+from practicejournalapi.views import GuitarTypeView
+from practicejournalapi.views import JournalEntryView
+from practicejournalapi.views import AudioView
+from practicejournalapi.views import ImageView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'students', StudentView, 'student')
+router.register(r'comments', CommentView, 'comment')
+router.register(r'guitartypes', GuitarTypeView, 'guitartype')
+router.register(r'journalentries', JournalEntryView, 'journalentry')
+router.register(r'audio', AudioView, 'audio')
+router.register(r'images', ImageView, 'image')
 
 urlpatterns = [
     # Requests to http://localhost:8000/register will be routed to the register_user function
