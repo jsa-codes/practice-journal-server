@@ -31,6 +31,18 @@ class AudioView(ViewSet):
         serialized = AudioSerializer(audio, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    def create(self, request):
+        new_audio = Audio()
+        new_audio.student = Student.objects.get(
+            pk=request.data["student"])
+        new_audio.date_created = request.data['date']
+        new_audio.time_created = request.data['date']
+        new_audio.save()
+
+        serialized = JournalEntrySerializer(new_audio, many=False)
+
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+
 
 class AudioSerializer(serializers.ModelSerializer):
     """JSON serializer for audios"""

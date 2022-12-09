@@ -3,22 +3,11 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from practicejournalapi.models import JournalEntry
+from practicejournalapi.models import JournalEntry, Student
 
 
 class JournalEntryView(ViewSet):
     """Honey Rae API journalentries view"""
-
-    def list(self, request):
-        """Handle GET requests to get all journalentries
-
-        Returns:
-            Response -- JSON serialized list of journalentries
-        """
-
-        journalentries = JournalEntry.objects.all()
-        serialized = JournalEntrySerializer(journalentries, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk=None):
         """Handle GET requests for single journalEntry
@@ -33,19 +22,32 @@ class JournalEntryView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    def list(self, request):
+        """Handle GET requests to get all journalentries
+
+        Returns:
+            Response -- JSON serialized list of journalentries
+        """
+
+        journalentries = JournalEntry.objects.all()
+        serialized = JournalEntrySerializer(journalentries, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
     def create(self, request):
-        student_journal_entry_id = request.data["studentId"]
-        student_instance = Student.objects.get(pk=student_journal_entry_id)
+        new_journalentry = JournalEntry()
+        new_journalentry.student = Student.objects.get(
+            pk=request.data["student"])
+        new_journalentry.date_created = request.data['date']
+        new_journalentry.time_created = request.data['time']
+        new_journalentry.hours_slept = request.data['hoursSlept']
+        new_journalentry.water = request.data['water']
+        new_journalentry.nutrition = request.data['nutrition']
+        new_journalentry.mood = request.data['mood']
+        new_journalentry.description = request.data['description']
+        new_journalentry.session_length = request.data['sessionLength']
+        new_journalentry.save()
 
-        journal_entry = JournalEntry()
-
-        journal_entry.student = student_instance
-
-        journal_entry.date = request.data["journalEntryDate"]
-
-        journal_entry.save()
-
-        serialized = JournalEntrySerializer(journal_entry, many=False)
+        serialized = JournalEntrySerializer(new_journalentry, many=False)
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
@@ -54,6 +56,6 @@ class JournalEntrySerializer(serializers.ModelSerializer):
     """JSON serializer for journalentries"""
     class Meta:
         model = JournalEntry
-        fields = ('id', 'student', 'date', 'time', 'hours_slept',
+        fields = ('id', 'student', 'date_created', 'time_created', 'hours_slept',
                   'water', 'nutrition', 'mood', 'description', 'session_length')
         depth = 1

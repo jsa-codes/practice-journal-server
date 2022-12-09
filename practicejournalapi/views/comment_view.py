@@ -31,6 +31,18 @@ class CommentView(ViewSet):
         serialized = CommentSerializer(comment, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    def create(self, request):
+        new_comment = Comment()
+        new_comment.student = Student.objects.get(
+            pk=request.data["student"])
+        new_comment.date_created = request.data['date']
+        new_comment.time_created = request.data['time']
+        new_comment.save()
+
+        serialized = JournalEntrySerializer(new_comment, many=False)
+
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+
 
 class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""

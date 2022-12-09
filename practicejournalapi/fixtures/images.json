@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "filename": 1,
-            "date": "2022-11-15"
+            "upload_date": "2022-11-15"
         }
     },
     {
@@ -12,7 +12,7 @@
         "pk": 2,
         "fields": {
             "filename": 2,
-            "date": "2022-11-15"
+            "upload_date": "2022-11-15"
         }
     },
     {
@@ -20,7 +20,7 @@
         "pk": 3,
         "fields": {
             "filename": 3,
-            "date": "2022-11-15"
+            "upload_date": "2022-11-15"
         }
     }
 ]

@@ -31,6 +31,17 @@ class ImageView(ViewSet):
         serialized = ImageSerializer(image, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    def create(self, request):
+        new_image = Image()
+        new_image.student = Student.objects.get(
+            pk=request.data["student"])
+        new_image.date_created = request.data['date']
+        new_image.save()
+
+        serialized = JournalEntrySerializer(new_image, many=False)
+
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+
 
 class ImageSerializer(serializers.ModelSerializer):
     """JSON serializer for images"""
