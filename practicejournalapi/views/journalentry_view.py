@@ -30,7 +30,24 @@ class JournalEntryView(ViewSet):
         journalentry = JournalEntry.objects.get(pk=pk)
         serialized = JournalEntrySerializer(
             journalentry, context={'request': request})
+
         return Response(serialized.data, status=status.HTTP_200_OK)
+
+    def create(self, request):
+        student_journal_entry_id = request.data["studentId"]
+        student_instance = Student.objects.get(pk=student_journal_entry_id)
+
+        journal_entry = JournalEntry()
+
+        journal_entry.student = student_instance
+
+        journal_entry.date = request.data["journalEntryDate"]
+
+        journal_entry.save()
+
+        serialized = JournalEntrySerializer(journal_entry, many=False)
+
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
 
 
 class JournalEntrySerializer(serializers.ModelSerializer):
