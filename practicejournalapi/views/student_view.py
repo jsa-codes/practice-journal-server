@@ -31,11 +31,8 @@ class StudentView(ViewSet):
         serialized = StudentSerializer(student, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
-    # TO-DO: Create PUT request for editing student information:
-        # age
-        # style
-        # years_playing
     def update(self, request, pk=None):
+        """ Handle PUT requests for single student"""
         guitartype = GuitarType.objects.get(pk=pk)
         student = Student.objects.get(pk=pk)
 

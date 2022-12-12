@@ -32,6 +32,7 @@ class CommentView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def create(self, request):
+        """ Handle POST requests for single comment"""
         new_comment = Comment()
         new_comment.student = Student.objects.get(
             pk=request.data["student"])
@@ -43,9 +44,8 @@ class CommentView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
-        # TO-DO:
-        # Create a PUT request for comments
     def update(self, request, pk=None):
+        """ Handle PUT requests for a single comment. """
         comment = Comment.objects.get(pk=pk)
         comment.description = request.data['description']
 

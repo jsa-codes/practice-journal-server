@@ -34,6 +34,7 @@ class JournalEntryView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def create(self, request):
+        """ Handle POST requests to create a new journal entry"""
         new_journalentry = JournalEntry()
         new_journalentry.student = Student.objects.get(
             pk=request.data["student"])
@@ -54,6 +55,20 @@ class JournalEntryView(ViewSet):
 
         # TO-DO:
         # Create a PUT request for editing a journal entry
+    def update(self, request, pk=None):
+        """ Handle a PUT request to update a journal entry"""
+        journalentry = JournalEntry.objects.get(pk=pk)
+
+        journalentry.hours_slept = request.data['age']
+        journalentry.water = request.data['water']
+        journalentry.nutrition = request.data['nutrition']
+        journalentry.mood = request.data['mood']
+        journalentry.description = request.data['description']
+        journalentry.session_length = request.data['session_length']
+        journalentry.guitartype = request.data['guitartype']
+
+        journalentry.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         # Create a DELETE request for deleting a journal entry
 
 

@@ -32,6 +32,7 @@ class AudioView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def create(self, request):
+        """ Handle POST requests for single audio upload"""
         new_audio = Audio()
         new_audio.student = Student.objects.get(
             pk=request.data["student"])
@@ -43,19 +44,20 @@ class AudioView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
-        # TO-DO:
-        # Create a PUT request for editing an audio upload
     def update(self, request, pk=None):
+        """ Handle PUT requests for a single audio upload"""
         audio = Audio.objects.get(pk=pk)
         audio.filename = request.data['filename']
 
         audio.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+        # TO-DO
         # Create a DELETE request for deleting an audio upload
 
 
 class AudioSerializer(serializers.ModelSerializer):
-    """JSON serializer for audios"""
+    """JSON serializer for audio"""
     class Meta:
         model = Audio
         fields = ('id', 'filename', 'date')

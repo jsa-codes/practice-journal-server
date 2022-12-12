@@ -32,6 +32,7 @@ class ImageView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def create(self, request):
+        """ Handle POST requests for single image"""
         new_image = Image()
         new_image.student = Student.objects.get(
             pk=request.data["student"])
@@ -43,9 +44,9 @@ class ImageView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
-        # TO-DO:
-        # Create a PUT request for editing an image
     def update(self, request, pk=None):
+        """ Handle PUT requests for single image"""
+
         image = Image.objects.get(pk=pk)
         image.filename = request.data['filename']
 

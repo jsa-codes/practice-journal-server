@@ -35,7 +35,13 @@ class GuitarTypeView(ViewSet):
         # TO-DO: Implement a PUT function for editing the guitartype:
         # acoustic
         # electric
+    def update(self, request, pk=None):
+        """ Handle PUT requests for updating guitar type"""
+        guitartype = GuitarType.objects.get(pk=pk)
+        guitartype.type = request.data['type']
 
+        guitartype.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         # TO-DO: Implement a DELETE function for deleting the guitartype
 
 
