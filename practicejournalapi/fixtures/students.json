@@ -6,7 +6,30 @@
             "user": 1,
             "age": 12,
             "years_playing": 4,
-            "style": "Blues"
+            "style": "Blues",
+            "guitartype": 1
+        }
+    },
+    {
+        "model": "practicejournalapi.student",
+        "pk": 2,
+        "fields": {
+            "user": 3,
+            "age": 33,
+            "years_playing": 2,
+            "style": "Rock",
+            "guitartype": 2
+        }
+    },
+    {
+        "model": "practicejournalapi.student",
+        "pk": 3,
+        "fields": {
+            "user": 4,
+            "age": 9,
+            "years_playing": 1,
+            "style": "Pop",
+            "guitartype": 3
         }
     }
 ]

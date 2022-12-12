@@ -12,5 +12,12 @@
         "fields": {
             "type": "electric"
         }
+    },
+    {
+        "model": "practicejournalapi.guitartype",
+        "pk": 3,
+        "fields": {
+            "type": "acoustic and electric"
+        }
     }
 ]

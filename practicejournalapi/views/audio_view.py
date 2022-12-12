@@ -45,6 +45,12 @@ class AudioView(ViewSet):
 
         # TO-DO:
         # Create a PUT request for editing an audio upload
+    def update(self, request, pk=None):
+        audio = Audio.objects.get(pk=pk)
+        audio.filename = request.data['filename']
+
+        audio.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         # Create a DELETE request for deleting an audio upload
 
 

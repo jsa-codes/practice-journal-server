@@ -10,6 +10,7 @@
             "water": 0,
             "nutrition": "",
             "mood": "",
+            "guitartype": 1,
             "description": "Today was great. I finally was able to make the transition from the G chord to the B minor barre chord, in time!",
             "session_length": 0
         }
@@ -25,6 +26,7 @@
             "water": 0,
             "nutrition": "",
             "mood": "",
+            "guitartype": 1,
             "description": "Had a hard time keeping the strumming pattern going while I changed chords.",
             "session_length": 0
         }

@@ -45,6 +45,12 @@ class ImageView(ViewSet):
 
         # TO-DO:
         # Create a PUT request for editing an image
+    def update(self, request, pk=None):
+        image = Image.objects.get(pk=pk)
+        image.filename = request.data['filename']
+
+        image.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         # Create a DELETE request for deleting an image
 
 

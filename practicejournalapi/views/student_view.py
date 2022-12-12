@@ -31,7 +31,22 @@ class StudentView(ViewSet):
         serialized = StudentSerializer(student, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
-    # TO-DO: Create PUT request for editing student
+    # TO-DO: Create PUT request for editing student information:
+        # age
+        # style
+        # years_playing
+    def update(self, request, pk=None):
+        guitartype = GuitarType.objects.get(pk=pk)
+        student = Student.objects.get(pk=pk)
+
+        student.age = request.data['age']
+        student.style = request.data['style']
+        student.years_playing = request.data['yearsPlaying']
+        student.guitartype = guitartype
+
+        guitartype.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
     # TO-DO: Create DELETE request for deleting a student profile
 
 
@@ -39,5 +54,5 @@ class StudentSerializer(serializers.ModelSerializer):
     """JSON serializer for students"""
     class Meta:
         model = Student
-        fields = ('id', 'user', 'age', 'style', 'years_playing')
-        depth = 1
+        fields = ('id', 'user', 'age', 'style', 'years_playing', 'guitartype')
+        depth = 3

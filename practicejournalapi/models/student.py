@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .guitar_type import GuitarType
 
 
 class Student(models.Model):
@@ -9,6 +10,7 @@ class Student(models.Model):
     age = models.IntegerField(null=True, blank=True)
     years_playing = models.IntegerField(null=True, blank=True)
     style = models.CharField(max_length=300, null=True, blank=True)
+    guitartype = models.ForeignKey(GuitarType, on_delete=models.CASCADE)
 
     @property
     def full_name(self):

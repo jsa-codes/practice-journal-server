@@ -45,6 +45,12 @@ class CommentView(ViewSet):
 
         # TO-DO:
         # Create a PUT request for comments
+    def update(self, request, pk=None):
+        comment = Comment.objects.get(pk=pk)
+        comment.description = request.data['description']
+
+        comment.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         # Create a DELETE request for comments
 
 

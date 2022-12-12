@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from practicejournalapi.models import JournalEntry, Student
+from practicejournalapi.models import JournalEntry, Student, GuitarType
 
 
 class JournalEntryView(ViewSet):
@@ -45,6 +45,7 @@ class JournalEntryView(ViewSet):
         new_journalentry.mood = request.data['mood']
         new_journalentry.description = request.data['description']
         new_journalentry.session_length = request.data['sessionLength']
+        new_journalentry.guitar_type = request.data['guitarType']
         new_journalentry.save()
 
         serialized = JournalEntrySerializer(new_journalentry, many=False)
@@ -56,10 +57,19 @@ class JournalEntryView(ViewSet):
         # Create a DELETE request for deleting a journal entry
 
 
+class StudentJournalEntrySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Student
+        fields = ('id', 'full_name', 'age', 'style', 'years_playing')
+
+
 class JournalEntrySerializer(serializers.ModelSerializer):
     """JSON serializer for journalentries"""
+    student = StudentJournalEntrySerializer(many=False)
+
     class Meta:
         model = JournalEntry
         fields = ('id', 'student', 'date_created', 'time_created', 'hours_slept',
-                  'water', 'nutrition', 'mood', 'description', 'session_length')
+                  'water', 'nutrition', 'mood', 'description', 'session_length', 'guitartype')
         depth = 1
