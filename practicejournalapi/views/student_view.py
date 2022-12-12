@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from practicejournalapi.models import Student
+from practicejournalapi.models import Student, GuitarType
 
 
 class StudentView(ViewSet):
@@ -26,22 +26,21 @@ class StudentView(ViewSet):
         Returns:
             Response -- JSON serialized student record
         """
-
         student = Student.objects.get(pk=pk)
         serialized = StudentSerializer(student, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None):
         """ Handle PUT requests for single student"""
-        guitartype = GuitarType.objects.get(pk=pk)
         student = Student.objects.get(pk=pk)
+        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
         student.age = request.data['age']
         student.style = request.data['style']
         student.years_playing = request.data['yearsPlaying']
         student.guitartype = guitartype
 
-        guitartype.save()
+        student.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     # TO-DO: Create DELETE request for deleting a student profile

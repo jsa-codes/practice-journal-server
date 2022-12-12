@@ -51,6 +51,7 @@ class CommentView(ViewSet):
 
         comment.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
         # Create a DELETE request for comments
 
 

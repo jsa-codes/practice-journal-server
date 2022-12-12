@@ -52,7 +52,8 @@ class ImageView(ViewSet):
 
         image.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-        # Create a DELETE request for deleting an image
+
+    # Create a DELETE request for deleting an image
 
 
 class ImageSerializer(serializers.ModelSerializer):

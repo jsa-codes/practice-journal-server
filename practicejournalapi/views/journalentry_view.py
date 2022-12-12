@@ -46,7 +46,7 @@ class JournalEntryView(ViewSet):
         new_journalentry.mood = request.data['mood']
         new_journalentry.description = request.data['description']
         new_journalentry.session_length = request.data['sessionLength']
-        new_journalentry.guitar_type = request.data['guitarType']
+        new_journalentry.guitar_type = request.data['guitartype']
         new_journalentry.save()
 
         serialized = JournalEntrySerializer(new_journalentry, many=False)
@@ -58,18 +58,20 @@ class JournalEntryView(ViewSet):
     def update(self, request, pk=None):
         """ Handle a PUT request to update a journal entry"""
         journalentry = JournalEntry.objects.get(pk=pk)
+        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
-        journalentry.hours_slept = request.data['age']
+        journalentry.hours_slept = request.data['hoursSlept']
         journalentry.water = request.data['water']
         journalentry.nutrition = request.data['nutrition']
         journalentry.mood = request.data['mood']
         journalentry.description = request.data['description']
-        journalentry.session_length = request.data['session_length']
-        journalentry.guitartype = request.data['guitartype']
+        journalentry.session_length = request.data['sessionLength']
+        journalentry.guitartype = guitartype
 
         journalentry.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-        # Create a DELETE request for deleting a journal entry
+
+    # Create a DELETE request for deleting a journal entry
 
 
 class StudentJournalEntrySerializer(serializers.ModelSerializer):

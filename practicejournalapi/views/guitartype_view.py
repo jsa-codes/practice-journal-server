@@ -38,11 +38,14 @@ class GuitarTypeView(ViewSet):
     def update(self, request, pk=None):
         """ Handle PUT requests for updating guitar type"""
         guitartype = GuitarType.objects.get(pk=pk)
-        guitartype.type = request.data['type']
+        guitartype.type = request.data['guitartype']
 
         guitartype.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
         # TO-DO: Implement a DELETE function for deleting the guitartype
+
+    # TO-DO
+        # Create a DELETE request for deleting an audio upload
 
 
 class GuitarTypeSerializer(serializers.ModelSerializer):
