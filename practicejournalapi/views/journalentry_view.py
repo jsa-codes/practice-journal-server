@@ -51,6 +51,10 @@ class JournalEntryView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
+        # TO-DO:
+        # Create a PUT request for editing a journal entry
+        # Create a DELETE request for deleting a journal entry
+
 
 class JournalEntrySerializer(serializers.ModelSerializer):
     """JSON serializer for journalentries"""

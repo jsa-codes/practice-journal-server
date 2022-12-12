@@ -43,6 +43,10 @@ class CommentView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
+        # TO-DO:
+        # Create a PUT request for comments
+        # Create a DELETE request for comments
+
 
 class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""

@@ -31,6 +31,9 @@ class StudentView(ViewSet):
         serialized = StudentSerializer(student, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    # TO-DO: Create PUT request for editing student
+    # TO-DO: Create DELETE request for deleting a student profile
+
 
 class StudentSerializer(serializers.ModelSerializer):
     """JSON serializer for students"""

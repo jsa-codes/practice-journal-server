@@ -32,6 +32,9 @@ class GuitarTypeView(ViewSet):
             guitartype, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+        # TO-DO: Implement a PUT function for editing the guitartype
+        # TO-DO: Implement a DELETE function for deleting the guitartype
+
 
 class GuitarTypeSerializer(serializers.ModelSerializer):
     """JSON serializer for guitartypes"""
