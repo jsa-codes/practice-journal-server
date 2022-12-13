@@ -11,5 +11,5 @@ python3 manage.py loaddata guitartypes
 python3 manage.py loaddata students
 python3 manage.py loaddata images
 python3 manage.py loaddata audio
-python3 manage.py loaddata comments
 python3 manage.py loaddata journalentries
+python3 manage.py loaddata comments

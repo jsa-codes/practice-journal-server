@@ -6,6 +6,7 @@
             "date_created": "2022-10-23",
             "time_created": "12:23:23",
             "description": "I'm having issues with this one particular strumming pattern. Can you send me an audio recording of what this is supposed to sound like?",
+            "journalentry": 1,
             "user": 1
         }
     },
@@ -16,6 +17,7 @@
             "date_created": "2022-10-23",
             "time_created": "12:25:34",
             "description": "Can you play it slowly, too?",
+            "journalentry": 1,
             "user": 1
         }
     }

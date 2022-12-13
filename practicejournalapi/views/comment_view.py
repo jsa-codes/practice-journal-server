@@ -34,10 +34,14 @@ class CommentView(ViewSet):
     def create(self, request):
         """ Handle POST requests for single comment"""
         new_comment = Comment()
+
+        journalentry = JournalEntry.objects.get(
+            pk=request.data['journalentryId'])
         new_comment.student = Student.objects.get(
             pk=request.data["student"])
         new_comment.date_created = request.data['date']
         new_comment.time_created = request.data['time']
+        new_comment.journalentry = journalentry
         new_comment.save()
 
         serialized = JournalEntrySerializer(new_comment, many=False)
@@ -59,5 +63,5 @@ class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
     class Meta:
         model = Comment
-        fields = ('id', 'description', 'date', 'time')
+        fields = ('id', 'description', 'date_created', 'time_created')
         depth = 1

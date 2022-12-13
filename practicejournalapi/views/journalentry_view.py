@@ -84,5 +84,5 @@ class JournalEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
         fields = ('id', 'student', 'date_created', 'time_created', 'hours_slept',
-                  'water', 'nutrition', 'mood', 'description', 'session_length', 'guitartype')
+                  'water', 'nutrition', 'mood', 'description', 'session_length', 'guitartype', 'comments')
         depth = 1
