@@ -54,6 +54,9 @@ class ImageView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     # Create a DELETE request for deleting an image
+    def destroy(self, request, pk=None):
+        image = Image.objects.get(pk=pk)
+        image.delete()
 
 
 class ImageSerializer(serializers.ModelSerializer):
