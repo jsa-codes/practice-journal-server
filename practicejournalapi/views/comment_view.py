@@ -3,7 +3,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from practicejournalapi.models import Comment
+from django.contrib.auth.models import User
+from practicejournalapi.models import Comment, JournalEntry
 
 
 class CommentView(ViewSet):
@@ -33,20 +34,21 @@ class CommentView(ViewSet):
 
     def create(self, request):
         """ Handle POST requests for single comment"""
-        new_comment = Comment()
-
+        user = User.objects.get(id=request.auth.user.id)
         journalentry = JournalEntry.objects.get(
             pk=request.data['journalentryId'])
-        new_comment.student = Student.objects.get(
-            pk=request.data["student"])
-        new_comment.date_created = request.data['date']
-        new_comment.time_created = request.data['time']
-        new_comment.journalentry = journalentry
-        new_comment.save()
 
-        serialized = JournalEntrySerializer(new_comment, many=False)
+        comment = Comment.objects.create(
+            date_created=request.data['date'],
+            time_created=request.data['time'],
+            description=request.data['description'],
+            user=user,
+            journalentry=journalentry
+        )
 
-        return Response(serialized.data, status=status.HTTP_201_CREATED)
+        serializer = CommentSerializer(comment)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         """ Handle PUT requests for a single comment. """

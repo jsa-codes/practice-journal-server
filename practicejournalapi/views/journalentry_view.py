@@ -35,23 +35,26 @@ class JournalEntryView(ViewSet):
 
     def create(self, request):
         """ Handle POST requests to create a new journal entry"""
-        new_journalentry = JournalEntry()
-        new_journalentry.student = Student.objects.get(
-            pk=request.data["student"])
-        new_journalentry.date_created = request.data['date']
-        new_journalentry.time_created = request.data['time']
-        new_journalentry.hours_slept = request.data['hoursSlept']
-        new_journalentry.water = request.data['water']
-        new_journalentry.nutrition = request.data['nutrition']
-        new_journalentry.mood = request.data['mood']
-        new_journalentry.description = request.data['description']
-        new_journalentry.session_length = request.data['sessionLength']
-        new_journalentry.guitar_type = request.data['guitartype']
-        new_journalentry.save()
 
-        serialized = JournalEntrySerializer(new_journalentry, many=False)
+        student = Student.objects.get(user=request.auth.user)
+        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
-        return Response(serialized.data, status=status.HTTP_201_CREATED)
+        journalentry = JournalEntry.objects.create(
+            date_created=request.data['date'],
+            time_created=request.data['time'],
+            hours_slept=request.data['hoursSlept'],
+            water=request.data['water'],
+            nutrition=request.data['nutrition'],
+            mood=request.data['mood'],
+            description=request.data['description'],
+            session_length=request.data['sessionLength'],
+            guitartype=guitartype,
+            student=student
+        )
+
+        serializer = JournalEntrySerializer(journalentry)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
         """ Handle a PUT request to update a journal entry"""

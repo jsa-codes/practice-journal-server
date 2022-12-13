@@ -35,7 +35,7 @@ class AudioView(ViewSet):
         """ Handle POST requests for single audio upload"""
         new_audio = Audio()
         new_audio.student = Student.objects.get(
-            pk=request.data["student"])
+            user=request.auth.user)
         new_audio.date_created = request.data['date']
         new_audio.time_created = request.data['date']
         new_audio.save()

@@ -35,7 +35,7 @@ class ImageView(ViewSet):
         """ Handle POST requests for single image"""
         new_image = Image()
         new_image.student = Student.objects.get(
-            pk=request.data["student"])
+            user=request.auth.user)
         new_image.date_created = request.data['date']
         new_image.time_created = request.data['time']
         new_image.save()

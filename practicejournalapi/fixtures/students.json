@@ -7,7 +7,8 @@
             "age": 12,
             "years_playing": 4,
             "style": "Blues",
-            "guitartype": 1
+            "guitartype": 1,
+            "instructor": 2
         }
     },
     {
@@ -18,7 +19,8 @@
             "age": 33,
             "years_playing": 2,
             "style": "Rock",
-            "guitartype": 2
+            "guitartype": 2,
+            "instructor": 2
         }
     },
     {
@@ -29,7 +31,8 @@
             "age": 9,
             "years_playing": 1,
             "style": "Pop",
-            "guitartype": 3
+            "guitartype": 3,
+            "instructor": null
         }
     }
 ]
