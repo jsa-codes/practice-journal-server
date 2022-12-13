@@ -53,8 +53,6 @@ class JournalEntryView(ViewSet):
 
         return Response(serialized.data, status=status.HTTP_201_CREATED)
 
-        # TO-DO:
-        # Create a PUT request for editing a journal entry
     def update(self, request, pk=None):
         """ Handle a PUT request to update a journal entry"""
         journalentry = JournalEntry.objects.get(pk=pk)
@@ -70,8 +68,6 @@ class JournalEntryView(ViewSet):
 
         journalentry.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-
-    # Create a DELETE request for deleting a journal entry
 
 
 class StudentJournalEntrySerializer(serializers.ModelSerializer):

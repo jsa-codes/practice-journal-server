@@ -52,8 +52,12 @@ class AudioView(ViewSet):
         audio.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-        # TO-DO
-        # Create a DELETE request for deleting an audio upload
+    def delete(self, request, pk=None):
+        """ Handle DELETE requests for a single audio upload"""
+        audio = Audio.objects.get(pk=pk)
+        audio.delete()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class AudioSerializer(serializers.ModelSerializer):

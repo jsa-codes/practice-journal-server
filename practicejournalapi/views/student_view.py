@@ -43,7 +43,11 @@ class StudentView(ViewSet):
         student.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-    # TO-DO: Create DELETE request for deleting a student profile
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for single student"""
+        student = Student.objects.get(pk=pk)
+        student.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class StudentSerializer(serializers.ModelSerializer):

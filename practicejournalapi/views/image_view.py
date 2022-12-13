@@ -53,8 +53,8 @@ class ImageView(ViewSet):
         image.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-    # Create a DELETE request for deleting an image
     def destroy(self, request, pk=None):
+        """ Handle DELETE requests for single image"""
         image = Image.objects.get(pk=pk)
         image.delete()
 
