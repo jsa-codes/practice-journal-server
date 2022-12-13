@@ -58,6 +58,8 @@ class ImageView(ViewSet):
         image = Image.objects.get(pk=pk)
         image.delete()
 
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
 
 class ImageSerializer(serializers.ModelSerializer):
     """JSON serializer for images"""
