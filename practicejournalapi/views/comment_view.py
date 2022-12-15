@@ -16,7 +16,6 @@ class CommentView(ViewSet):
         Returns:
             Response -- JSON serialized list of comments
         """
-
         comments = Comment.objects.all()
         serialized = CommentSerializer(comments, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -27,7 +26,6 @@ class CommentView(ViewSet):
         Returns:
             Response -- JSON serialized comment record
         """
-
         comment = Comment.objects.get(pk=pk)
         serialized = CommentSerializer(comment, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -54,8 +52,9 @@ class CommentView(ViewSet):
         """ Handle PUT requests for a single comment. """
         comment = Comment.objects.get(pk=pk)
         comment.description = request.data['description']
-
+        comment.user = User.objects.get(pk=request.data["userId"])
         comment.save()
+
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
         # Create a DELETE request for comments
@@ -65,5 +64,5 @@ class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
     class Meta:
         model = Comment
-        fields = ('id', 'description', 'date_created', 'time_created')
+        fields = ('id', 'description', 'date_created', 'time_created', 'user')
         depth = 1

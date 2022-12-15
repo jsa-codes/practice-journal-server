@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from practicejournalapi.views import register_user, login_user
+from practicejournalapi.views import UserView
 from practicejournalapi.views import StudentView
+from practicejournalapi.views import InstructorView
 from practicejournalapi.views import CommentView
 from practicejournalapi.views import GuitarTypeView
 from practicejournalapi.views import JournalEntryView
@@ -26,7 +28,9 @@ from practicejournalapi.views import AudioView
 from practicejournalapi.views import ImageView
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'users', UserView, 'user')
 router.register(r'students', StudentView, 'student')
+router.register(r'instructors', InstructorView, 'instructor')
 router.register(r'comments', CommentView, 'comment')
 router.register(r'guitartypes', GuitarTypeView, 'guitartype')
 router.register(r'journalentries', JournalEntryView, 'journalentry')

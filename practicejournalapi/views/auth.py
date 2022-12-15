@@ -17,12 +17,12 @@ def login_user(request):
     Method arguments:
       request -- The full HTTP request object
     '''
-    email = request.data['email']
+    username = request.data['username']
     password = request.data['password']
 
     # Use the built-in authenticate method to verify
     # authenticate returns the user object or None if no user is found
-    authenticated_user = authenticate(username=email, password=password)
+    authenticated_user = authenticate(username=username, password=password)
 
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
@@ -31,7 +31,7 @@ def login_user(request):
         data = {
             'valid': True,
             'token': token.key,
-            'staff': authenticated_user.is_staff
+            # 'staff': authenticated_user.is_staff
         }
         return Response(data)
     else:
@@ -91,7 +91,7 @@ def register_user(request):
             # Create a new user by invoking the `create_user` helper method
             # on Django's built-in User model
             new_user = User.objects.create_user(
-                username=request.data['email'],
+                username=request.data['username'],
                 email=request.data['email'],
                 password=request.data['password'],
                 first_name=request.data['first_name'],
@@ -115,10 +115,14 @@ def register_user(request):
             token = Token.objects.create(user=account.user)
 
         elif account_type == 'instructor':
-            new_user.is_staff = True
-            new_user.save()
-        # Use the REST Framework's token generator on the new user account
-            token = Token.objects.create(user=new_user)
+            account = Instructor.objects.create(
+                age=request.data['age'],
+                years_playing=request.data['years_playing'],
+                bio=request.data['bio'],
+                location=request.data['location'],
+                user=new_user
+            )
+            token = Token.objects.create(user=account.user)
 
         # Return the token to the client
         data = {'token': token.key, 'staff': new_user.is_staff}

@@ -8,3 +8,5 @@ from .journal_entry import JournalEntry
 from .journal_image_upload import JournalImageUpload
 from .student_guitar import StudentGuitar
 from .student import Student
+from .instructor import Instructor
+from .user import User

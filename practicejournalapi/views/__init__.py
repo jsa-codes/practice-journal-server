@@ -5,3 +5,5 @@ from .guitartype_view import GuitarTypeView
 from .journalentry_view import JournalEntryView
 from .audio_view import AudioView
 from .image_view import ImageView
+from .user_view import UserView
+from .instructor_view import InstructorView
