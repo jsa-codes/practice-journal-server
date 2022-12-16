@@ -11,12 +11,11 @@ class InstructorView(ViewSet):
     """Honey Rae API instructors view"""
 
     def list(self, request):
-        """Handle GET requests to get all instructors
+        """Handle GET requests to get ALL instructors
 
         Returns:
             Response -- JSON serialized list of instructors
         """
-
         instructors = Instructor.objects.all()
         serialized = InstructorSerializer(instructors, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -28,9 +27,8 @@ class InstructorView(ViewSet):
             Response -- JSON serialized instructor record
         """
         instructor = Instructor.objects.get(pk=pk)
-        serialized = InstructorSerializer(
-            instructor, context={'request': request})
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        serializer = InstructorSerializer(new_instructor)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None):
         """ Handle PUT requests for single instructor"""
@@ -56,5 +54,5 @@ class InstructorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instructor
         fields = ('id', 'age', 'full_name',
-                  'years_playing', 'bio', 'location')
-        depth = 3
+                  'yearsPlaying', 'bio', 'location')
+        depth = 1

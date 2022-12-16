@@ -50,6 +50,7 @@ def register_user(request):
       request -- The full HTTP request object
     '''
     account_type = request.data.get('account_type', None)
+    username = request.data.get('username', None)
     email = request.data.get('email', None)
     first_name = request.data.get('first_name', None)
     last_name = request.data.get('last_name', None)
@@ -57,6 +58,7 @@ def register_user(request):
 
     if account_type is not None \
             and email is not None\
+            and username is not None\
             and first_name is not None \
             and last_name is not None \
             and password is not None:
@@ -96,8 +98,10 @@ def register_user(request):
                 password=request.data['password'],
                 email=request.data['email'],
                 first_name=request.data['first_name'],
-                last_name=request.data['last_name']
+                last_name=request.data['last_name'],
+                is_staff=request.data['is_staff']
             )
+
         except IntegrityError:
             return Response(
                 {'message': 'An account with that email address already exists'},
@@ -126,7 +130,7 @@ def register_user(request):
             token = Token.objects.create(user=account.user)
 
         # Return the token to the client
-        data = {'token': token.key, 'staff': new_user.is_staff}
+        data = {'token': token.key, 'instructor': new_user.is_staff}
         return Response(data)
 
-    return Response({'message': 'You must provide email, password, first_name, last_name and account_type'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'message': 'You must provide email, password, firstName, lastName and account_type'}, status=status.HTTP_400_BAD_REQUEST)
