@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from practicejournalapi.models import Student
+from practicejournalapi.models import Instructor
 
 
 @api_view(['POST'])
@@ -31,7 +32,7 @@ def login_user(request):
         data = {
             'valid': True,
             'token': token.key,
-            # 'staff': authenticated_user.is_staff
+            'instructor': authenticated_user.is_staff
         }
         return Response(data)
     else:
@@ -92,8 +93,8 @@ def register_user(request):
             # on Django's built-in User model
             new_user = User.objects.create_user(
                 username=request.data['username'],
-                email=request.data['email'],
                 password=request.data['password'],
+                email=request.data['email'],
                 first_name=request.data['first_name'],
                 last_name=request.data['last_name']
             )
@@ -108,7 +109,7 @@ def register_user(request):
         if account_type == 'student':
             account = Student.objects.create(
                 age=request.data['age'],
-                years_playing=request.data['years_playing'],
+                years_playing=request.data['yearsPlaying'],
                 style=request.data['style'],
                 user=new_user
             )
@@ -117,7 +118,7 @@ def register_user(request):
         elif account_type == 'instructor':
             account = Instructor.objects.create(
                 age=request.data['age'],
-                years_playing=request.data['years_playing'],
+                years_playing=request.data['yearsPlaying'],
                 bio=request.data['bio'],
                 location=request.data['location'],
                 user=new_user

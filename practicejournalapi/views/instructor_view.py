@@ -55,6 +55,6 @@ class InstructorSerializer(serializers.ModelSerializer):
     """JSON serializer for instructors"""
     class Meta:
         model = Instructor
-        fields = ('id', 'age',
+        fields = ('id', 'age', 'full_name',
                   'years_playing', 'bio', 'location')
         depth = 3

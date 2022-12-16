@@ -3,33 +3,11 @@
         "model": "practicejournalapi.instructor",
         "pk": 1,
         "fields": {
-            "user": 1,
-            "age": 32,
-            "years_playing": 23,
-            "bio": "Rock head.",
-            "location": "Los Angeles, CA"
-        }
-    },
-    {
-        "model": "practicejournalapi.instructor",
-        "pk": 2,
-        "fields": {
-            "user": 3,
+            "user": 2,
             "age": 48,
             "years_playing": 34,
             "bio": "I love playing many styles of music. Some of my favorites are traditional, folk, bluegrass, fingerstyle and rock.",
             "location": "Nashville, TN"
-        }
-    },
-    {
-        "model": "practicejournalapi.instructor",
-        "pk": 3,
-        "fields": {
-            "user": 4,
-            "age": 53,
-            "years_playing": 42,
-            "bio": "My thing is blues. All day, everyday.",
-            "location": "Memphis, TN"
         }
     }
 ]

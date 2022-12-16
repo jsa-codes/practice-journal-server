@@ -36,8 +36,8 @@ class ImageView(ViewSet):
         new_image = Image()
         new_image.student = Student.objects.get(
             user=request.auth.user)
-        new_image.date_created = request.data['date']
-        new_image.time_created = request.data['time']
+        new_image.upload_date = request.data['date']
+        new_image.time = request.data['time']
         new_image.save()
 
         serialized = JournalEntrySerializer(new_image, many=False)
@@ -65,5 +65,5 @@ class ImageSerializer(serializers.ModelSerializer):
     """JSON serializer for images"""
     class Meta:
         model = Image
-        fields = ('id', 'filename', 'date')
+        fields = ('id', 'filename', 'upload_date')
         depth = 1

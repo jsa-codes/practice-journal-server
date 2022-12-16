@@ -36,8 +36,8 @@ class AudioView(ViewSet):
         new_audio = Audio()
         new_audio.student = Student.objects.get(
             user=request.auth.user)
-        new_audio.date_created = request.data['date']
-        new_audio.time_created = request.data['date']
+        new_audio.filename = request.data['filename']
+        new_audio.upload_date = request.data['date']
         new_audio.save()
 
         serialized = JournalEntrySerializer(new_audio, many=False)
@@ -64,5 +64,5 @@ class AudioSerializer(serializers.ModelSerializer):
     """JSON serializer for audio"""
     class Meta:
         model = Audio
-        fields = ('id', 'filename', 'date')
+        fields = ('id', 'filename', 'upload_date')
         depth = 1
