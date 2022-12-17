@@ -10,7 +10,7 @@ class Student(models.Model):
     age = models.IntegerField(null=True, blank=True)
     years_playing = models.IntegerField(null=True, blank=True)
     style = models.CharField(max_length=300, null=True, blank=True)
-    guitartype = models.ForeignKey(GuitarType, on_delete=models.CASCADE)
+    guitartype = models.ForeignKey("GuitarType", on_delete=models.CASCADE)
     instructor = models.ForeignKey(
         "Instructor", null=True, blank=True, on_delete=models.CASCADE, related_name='Student')
 
