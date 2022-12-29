@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.contrib.auth.models import User
-from practicejournalapi.models import Student, GuitarType
+from practicejournalapi.models import Student
 
 
 class StudentView(ViewSet):
@@ -35,12 +35,10 @@ class StudentView(ViewSet):
         """ Handle PUT requests for single student"""
         student = Student.objects.get(pk=pk)
         instructor = User.objects.get(pk=request.data['instructorId'])
-        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
         student.age = request.data['age']
         student.style = request.data['style']
         student.years_playing = request.data['yearsPlaying']
-        student.guitartype = guitartype
         student.instructor = instructor
 
         student.save()
@@ -58,5 +56,4 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('id', 'user', 'age', 'style',
-                  'years_playing', 'guitartype', 'full_name', 'instructor')
-        depth = 3
+                  'years_playing', 'full_name', 'instructor')

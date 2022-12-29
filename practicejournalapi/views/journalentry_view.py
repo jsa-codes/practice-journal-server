@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from practicejournalapi.models import JournalEntry, Student, GuitarType
+from practicejournalapi.models import JournalEntry, Student
 
 
 class JournalEntryView(ViewSet):
@@ -37,7 +37,6 @@ class JournalEntryView(ViewSet):
         """ Handle POST requests to create a new journal entry"""
 
         student = Student.objects.get(user=request.auth.user)
-        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
         journalentry = JournalEntry.objects.create(
             date_created=request.data['date'],
@@ -48,7 +47,6 @@ class JournalEntryView(ViewSet):
             mood=request.data['mood'],
             description=request.data['description'],
             session_length=request.data['sessionLength'],
-            guitartype=guitartype,
             student=student
         )
 
@@ -59,7 +57,6 @@ class JournalEntryView(ViewSet):
     def update(self, request, pk=None):
         """ Handle a PUT request to update a journal entry"""
         journalentry = JournalEntry.objects.get(pk=pk)
-        guitartype = GuitarType.objects.get(pk=request.data['guitartypeId'])
 
         journalentry.hours_slept = request.data['hoursSlept']
         journalentry.water = request.data['water']
@@ -67,7 +64,6 @@ class JournalEntryView(ViewSet):
         journalentry.mood = request.data['mood']
         journalentry.description = request.data['description']
         journalentry.session_length = request.data['sessionLength']
-        journalentry.guitartype = guitartype
 
         journalentry.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
@@ -87,5 +83,5 @@ class JournalEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
         fields = ('id', 'student', 'date_created', 'time_created', 'hours_slept',
-                  'water', 'nutrition', 'mood', 'description', 'session_length', 'guitartype', 'comments')
+                  'water', 'nutrition', 'mood', 'description', 'session_length')
         depth = 1

@@ -113,7 +113,7 @@ def register_user(request):
         if account_type == 'student':
             account = Student.objects.create(
                 age=request.data['age'],
-                years_playing=request.data['yearsPlaying'],
+                years_playing=request.data['years_playing'],
                 style=request.data['style'],
                 user=new_user
             )
@@ -122,7 +122,7 @@ def register_user(request):
         elif account_type == 'instructor':
             account = Instructor.objects.create(
                 age=request.data['age'],
-                years_playing=request.data['yearsPlaying'],
+                years_playing=request.data['years_playing'],
                 bio=request.data['bio'],
                 location=request.data['location'],
                 user=new_user
@@ -133,4 +133,4 @@ def register_user(request):
         data = {'token': token.key, 'instructor': new_user.is_staff}
         return Response(data)
 
-    return Response({'message': 'You must provide email, password, firstName, lastName and account_type'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'message': 'You must provide email, password, firstName, lastName and accountType'}, status=status.HTTP_400_BAD_REQUEST)

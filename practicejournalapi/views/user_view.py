@@ -34,4 +34,4 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for students"""
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'is_staff')
+        fields = ('id', 'first_name', 'last_name', 'email', 'is_staff')
