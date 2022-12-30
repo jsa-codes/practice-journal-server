@@ -20,5 +20,16 @@
             "journalentry": 1,
             "user": 1
         }
+    },
+    {
+        "model": "practicejournalapi.comment",
+        "pk": 3,
+        "fields": {
+            "date_created": "2022-10-23",
+            "time_created": "12:25:34",
+            "description": "Is this in the key of G?",
+            "journalentry": 1,
+            "user": 2
+        }
     }
 ]

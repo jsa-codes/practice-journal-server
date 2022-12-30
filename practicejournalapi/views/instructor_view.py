@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.contrib.auth.models import User
-from practicejournalapi.models import Instructor
+from practicejournalapi.models import Instructor, Student
 
 
 class InstructorView(ViewSet):
@@ -49,8 +49,19 @@ class InstructorView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
+class InstructorStudentSerializer(serializers.ModelSerializer):
+    """Serializer for instructor and student"""
+
+    class Meta:
+        model = Student
+        fields = ('id', 'full_name')
+
+
 class InstructorSerializer(serializers.ModelSerializer):
     """JSON serializer for instructors"""
+
+    students = InstructorStudentSerializer(many=True)
+
     class Meta:
         model = Instructor
         fields = ('id', 'age', 'full_name',
