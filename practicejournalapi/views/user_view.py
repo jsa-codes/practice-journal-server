@@ -3,35 +3,40 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.contrib.auth.models import User
+from practicejournalapi.models import Student
+from practicejournalapi.models import Instructor
 
 
 class UserView(ViewSet):
     """Honey Rae API users view"""
 
-    def list(self, request):
-        """Handle GET requests to get all users
-
-        Returns:
-            Response -- JSON serialized list of users
-        """
-
-        users = User.objects.all()
-        serialized = UserSerializer(users, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
-
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk):
         """Handle GET requests for single student
 
         Returns:
             Response -- JSON serialized student record
         """
-        user = User.objects.get(pk=pk)
-        serialized = UserSerializer(user, context={'request': request})
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        if pk == "current":
+            user = request.user
+            if user.is_staff:
+                instructor = Instructor.objects.get(user=user)
 
+                data = {
+                    "id": instructor.id,
+                    "firstName": user.first_name,
+                    "lastName": user.last_name,
+                    "bio": instructor.bio,
+                    "style": instructor.style
+                }
+            else:
+                student = Student.objects.get(user=user)
 
-class UserSerializer(serializers.ModelSerializer):
-    """JSON serializer for students"""
-    class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'is_staff')
+                data = {
+                    "id": student.id,
+                    "age": student.age,
+                    "firstName": user.first_name,
+                    "lastName": user.last_name,
+                    "style": student.style,
+                    "yearsPlaying": student.years_playing,
+                }
+            return Response(data, status=status.HTTP_200_OK)

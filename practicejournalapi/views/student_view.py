@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.contrib.auth.models import User
-from practicejournalapi.models import Student
+from practicejournalapi.models import Student, Instructor
 
 
 class StudentView(ViewSet):
@@ -34,7 +34,7 @@ class StudentView(ViewSet):
     def update(self, request, pk=None):
         """ Handle PUT requests for single student"""
         student = Student.objects.get(pk=pk)
-        instructor = User.objects.get(pk=request.data['instructorId'])
+        instructor = Instructor.objects.get(pk=pk)
 
         student.age = request.data['age']
         student.style = request.data['style']
