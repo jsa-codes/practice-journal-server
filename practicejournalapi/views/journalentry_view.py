@@ -1,4 +1,5 @@
 """View module for handling requests for student data"""
+from django.utils.timezone import datetime
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ class JournalEntryView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def list(self, request):
-        """Handle GET requests to get all journalentries
+        """Handle GET requests to get ALL journalentries
 
         Returns:
             Response -- JSON serialized list of journalentries
@@ -39,8 +40,8 @@ class JournalEntryView(ViewSet):
         student = Student.objects.get(user=request.auth.user)
 
         journalentry = JournalEntry.objects.create(
-            date_created=request.data['date'],
-            time_created=request.data['time'],
+            date=datetime.now().date(),
+            time=datetime.now().time(),
             hours_slept=request.data['hoursSlept'],
             water=request.data['water'],
             nutrition=request.data['nutrition'],
@@ -58,12 +59,12 @@ class JournalEntryView(ViewSet):
         """ Handle a PUT request to update a journal entry"""
         journalentry = JournalEntry.objects.get(pk=pk)
 
-        journalentry.hours_slept = request.data['hoursSlept']
+        journalentry.hours_slept = request.data['hours_slept']
         journalentry.water = request.data['water']
         journalentry.nutrition = request.data['nutrition']
         journalentry.mood = request.data['mood']
         journalentry.description = request.data['description']
-        journalentry.session_length = request.data['sessionLength']
+        journalentry.session_length = request.data['session_length']
 
         journalentry.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
@@ -82,6 +83,6 @@ class JournalEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JournalEntry
-        fields = ('id', 'student', 'date_created', 'time_created', 'hours_slept',
+        fields = ('id', 'student', 'date', 'time', 'hours_slept',
                   'water', 'nutrition', 'mood', 'description', 'session_length')
         depth = 1

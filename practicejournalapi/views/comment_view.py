@@ -37,8 +37,8 @@ class CommentView(ViewSet):
             pk=request.data['journalentryId'])
 
         comment = Comment.objects.create(
-            date_created=request.data['date'],
-            time_created=request.data['time'],
+            date=request.data['date'],
+            time=request.data['time'],
             description=request.data['description'],
             user=user,
             journalentry=journalentry
@@ -64,6 +64,6 @@ class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
     class Meta:
         model = Comment
-        fields = ('id', 'description', 'date_created',
-                  'time_created', 'user', 'journalentry')
+        fields = ('id', 'description', 'date',
+                  'time', 'user', 'journalentry')
         depth = 1

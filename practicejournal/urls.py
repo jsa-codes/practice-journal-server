@@ -30,7 +30,7 @@ router.register(r'users', UserView, 'user')
 router.register(r'students', StudentView, 'student')
 router.register(r'instructors', InstructorView, 'instructor')
 router.register(r'comments', CommentView, 'comment')
-router.register(r'journalentries', JournalEntryView, 'journalentry')
+router.register(r'journalEntries', JournalEntryView, 'journalEntry')
 router.register(r'audio', AudioView, 'audio')
 
 urlpatterns = [

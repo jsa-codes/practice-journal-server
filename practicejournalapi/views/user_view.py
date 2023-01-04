@@ -40,3 +40,15 @@ class UserView(ViewSet):
                     "yearsPlaying": student.years_playing,
                 }
             return Response(data, status=status.HTTP_200_OK)
+
+    def list(self, request):
+        """Handle GET requests for all users """
+        if request.user.is_staff:
+            instructor = Instructor.objects.get(user=request.user)
+
+            data = {
+                "id": instructor.id,
+                "firstName": instructor.first_name,
+                "lastName": instructor.last_name,
+            }
+            return Response(data, status=status.HTTP_200_OK)
