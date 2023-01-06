@@ -1,10 +1,10 @@
-"""View module for handling requests for student data"""
 from django.utils.timezone import datetime
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from practicejournalapi.models import JournalEntry, Student
+from django.contrib.auth.models import User
 
 
 class JournalEntryView(ViewSet):
@@ -30,7 +30,14 @@ class JournalEntryView(ViewSet):
             Response -- JSON serialized list of journalentries
         """
 
-        journalentries = JournalEntry.objects.all()
+        try:
+            loggedin_student = Student.objects.get(user=request.auth.user)
+            if loggedin_student:
+                journalentries = JournalEntry.objects.filter(student_id=loggedin_student)
+
+        except:
+            journalentries = JournalEntry.objects.all()
+
         serialized = JournalEntrySerializer(journalentries, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -67,6 +74,12 @@ class JournalEntryView(ViewSet):
         journalentry.session_length = request.data['session_length']
 
         journalentry.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    def destroy(self, request, pk=None):
+        """ Handle a DELETE request to delete a journal entry"""
+        journalentry = JournalEntry.objects.get(pk=pk)
+        journalentry.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 

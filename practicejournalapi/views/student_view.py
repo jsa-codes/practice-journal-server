@@ -34,12 +34,12 @@ class StudentView(ViewSet):
     def update(self, request, pk=None):
         """ Handle PUT requests for single student"""
         student = Student.objects.get(pk=pk)
-        instructor = Instructor.objects.get(pk=pk)
+        user = User.objects.get(pk=pk)
 
         student.age = request.data['age']
         student.style = request.data['style']
-        student.years_playing = request.data['yearsPlaying']
-        student.instructor = instructor
+        student.years_playing = request.data['years_playing']
+        student.user = user
 
         student.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
@@ -55,5 +55,5 @@ class StudentSerializer(serializers.ModelSerializer):
     """JSON serializer for students"""
     class Meta:
         model = Student
-        fields = ('id', 'user', 'age', 'style',
+        fields = ('id', 'user', 'age', 'style', 
                   'years_playing', 'full_name', 'instructor')

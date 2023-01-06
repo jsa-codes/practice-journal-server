@@ -16,6 +16,8 @@ class InstructorView(ViewSet):
         Returns:
             Response -- JSON serialized list of instructors
         """
+        
+
         instructors = Instructor.objects.all()
         serialized = InstructorSerializer(instructors, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -35,7 +37,7 @@ class InstructorView(ViewSet):
         instructor = Instructor.objects.get(pk=pk)
 
         instructor.age = request.data['age']
-        instructor.years_playing = request.data['yearsPlaying']
+        instructor.years_playing = request.data['years_playing']
         instructor.bio = request.data['bio']
         instructor.location = request.data['location']
 

@@ -17,7 +17,7 @@ class UserView(ViewSet):
             Response -- JSON serialized student record
         """
         if pk == "current":
-            user = request.user
+            user = request.auth.user
             if user.is_staff:
                 instructor = Instructor.objects.get(user=user)
 
@@ -25,8 +25,10 @@ class UserView(ViewSet):
                     "id": instructor.id,
                     "firstName": user.first_name,
                     "lastName": user.last_name,
+                    "age": instructor.age,
+                    "years_playing": instructor.years_playing,
                     "bio": instructor.bio,
-                    "style": instructor.style
+                    "location": instructor.location
                 }
             else:
                 student = Student.objects.get(user=user)
@@ -37,7 +39,7 @@ class UserView(ViewSet):
                     "firstName": user.first_name,
                     "lastName": user.last_name,
                     "style": student.style,
-                    "yearsPlaying": student.years_playing,
+                    "years_playing": student.years_playing,
                 }
             return Response(data, status=status.HTTP_200_OK)
 
