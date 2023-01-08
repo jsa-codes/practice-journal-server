@@ -16,8 +16,9 @@ class StudentView(ViewSet):
         Returns:
             Response -- JSON serialized list of students
         """
-
+        
         students = Student.objects.all()
+
         serialized = StudentSerializer(students, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -40,6 +41,7 @@ class StudentView(ViewSet):
         student.style = request.data['style']
         student.years_playing = request.data['years_playing']
         student.user = user
+        
 
         student.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)

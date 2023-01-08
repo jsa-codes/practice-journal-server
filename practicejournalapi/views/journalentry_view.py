@@ -19,7 +19,7 @@ class JournalEntryView(ViewSet):
 
         journalentry = JournalEntry.objects.get(pk=pk)
         serialized = JournalEntrySerializer(
-            journalentry, context={'request': request})
+        journalentry, context={'request': request})
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -49,12 +49,12 @@ class JournalEntryView(ViewSet):
         journalentry = JournalEntry.objects.create(
             date=datetime.now().date(),
             time=datetime.now().time(),
-            hours_slept=request.data['hoursSlept'],
+            hours_slept=request.data['hours_slept'],
             water=request.data['water'],
             nutrition=request.data['nutrition'],
             mood=request.data['mood'],
             description=request.data['description'],
-            session_length=request.data['sessionLength'],
+            session_length=request.data['session_length'],
             student=student
         )
 

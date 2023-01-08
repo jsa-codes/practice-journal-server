@@ -133,4 +133,4 @@ def register_user(request):
         data = {'token': token.key, 'instructor': new_user.is_staff}
         return Response(data)
 
-    return Response({'message': 'You must provide email, password, firstName, lastName and accountType'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'message': 'You must provide email, password, first name, last name and account type'}, status=status.HTTP_400_BAD_REQUEST)

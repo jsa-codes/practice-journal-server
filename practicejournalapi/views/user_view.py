@@ -23,8 +23,8 @@ class UserView(ViewSet):
 
                 data = {
                     "id": instructor.id,
-                    "firstName": user.first_name,
-                    "lastName": user.last_name,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
                     "age": instructor.age,
                     "years_playing": instructor.years_playing,
                     "bio": instructor.bio,
@@ -36,8 +36,8 @@ class UserView(ViewSet):
                 data = {
                     "id": student.id,
                     "age": student.age,
-                    "firstName": user.first_name,
-                    "lastName": user.last_name,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
                     "style": student.style,
                     "years_playing": student.years_playing,
                 }
@@ -50,7 +50,7 @@ class UserView(ViewSet):
 
             data = {
                 "id": instructor.id,
-                "firstName": instructor.first_name,
-                "lastName": instructor.last_name,
+                "first_name": instructor.first_name,
+                "last_name": instructor.last_name,
             }
             return Response(data, status=status.HTTP_200_OK)
