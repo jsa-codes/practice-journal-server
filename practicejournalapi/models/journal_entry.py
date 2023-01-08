@@ -14,4 +14,4 @@ class JournalEntry(models.Model):
     nutrition = models.CharField(max_length=1000)
     mood = models.CharField(max_length=300)
     description = models.CharField(max_length=1000)
-    session_length = models.FloatField()
+    session_length = models.IntegerField()

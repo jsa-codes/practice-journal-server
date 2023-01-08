@@ -19,7 +19,7 @@ class JournalEntryView(ViewSet):
 
         journalentry = JournalEntry.objects.get(pk=pk)
         serialized = JournalEntrySerializer(
-        journalentry, context={'request': request})
+            journalentry, context={'request': request})
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -33,7 +33,8 @@ class JournalEntryView(ViewSet):
         try:
             loggedin_student = Student.objects.get(user=request.auth.user)
             if loggedin_student:
-                journalentries = JournalEntry.objects.filter(student_id=loggedin_student)
+                journalentries = JournalEntry.objects.filter(
+                    student_id=loggedin_student)
 
         except:
             journalentries = JournalEntry.objects.all()
